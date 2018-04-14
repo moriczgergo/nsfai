@@ -29,6 +29,7 @@ class nsfai {
      * @param {string} data Your URL/Data URL/Base64 string
      * @param {nsfai~predictCallback} cb Your callback
      */
+<<<<<<< HEAD
     predict(data, cb) {
         var app = this.app;
         return new Promise(function(resolve, reject) {
@@ -48,6 +49,31 @@ class nsfai {
                 reject(err);
             }
         });
+=======
+    predict(data, cb, options) {
+        try {
+            if (!options) {
+                options = {};
+            }
+            var _options = Object.assign({
+                video: false
+            }, options);
+            var dataObject = dataParser(data);
+            this.app.models.predict(Clarifai.NSFW_MODEL, dataObject, { video: options.video || dataObject.video }).then(
+                function(response) {
+                    cb(null, {
+                        sfw: response.outputs[0].data.concepts[0].name === "sfw",
+                        confidence: response.outputs[0].data.concepts[0].value // confidence (0-1) about the result
+                    });
+                },
+                function (err) {
+                    cb(err, null);
+                }
+            );
+        } catch(err) {
+            cb(err, null);
+        }
+>>>>>>> 467aca1 (Added video support to predict().)
     }
 }
 
