@@ -30,7 +30,11 @@ class nsfai {
      * @param {nsfai~predictCallback} cb Your callback
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     predict(data, cb) {
+=======
+    predict(data, options) {
+>>>>>>> 2e4d0c0 (Removed the cb argument from predict. 🤦)
         var app = this.app;
         return new Promise(function(resolve, reject) {
             try {
